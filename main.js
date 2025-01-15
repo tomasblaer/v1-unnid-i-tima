@@ -37,7 +37,8 @@ async function main() {
 main();
 
 /*
-
+// Eftirfarandi kóði kom frá ChatGTP eftir að hafa gefið
+// MJÖG einfalt prompt ásamt allri verkefnalýsingu
 async function readAllData() {
   const indexPath = './data/index.json';
 
