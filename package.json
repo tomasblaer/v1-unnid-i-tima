@@ -5,14 +5,24 @@
   "description": "Lausn á verkefni 1",
   "main": "main.js",
   "scripts": {
-    "build": "node src/lib/main.js",
-    "dev": "browser-sync start --serveStatic ./dist --server --files ./public/styles.css ./dist/*.*"
+    "build": "node src/lib/main.js && cpy public dist",
+    "dev": "browser-sync start --serveStatic ./dist --server --files ./public/styles.css ./dist/*.*",
+    "test": "cross-env NODE_OPTIONS='--experimental-vm-modules' NODE_NO_WARNINGS=1 jest ./*.test.js",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "browser-sync": "^3.0.3",
-    "cpy-cli": "^5.0.0"
+    "cpy-cli": "^5.0.0",
+    "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@jest/globals": "^29.7.0",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "jest": "^29.7.0"
   }
 }

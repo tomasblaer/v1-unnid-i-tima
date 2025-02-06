@@ -6,7 +6,7 @@ import path from 'node:path';
  * @param {string} path 
  * @returns 
  */
-async function fileExists(path) {
+export async function fileExists(path) {
     try {
         await fs.readFile('./data/'+ path);
     } catch (e) {
@@ -23,6 +23,8 @@ async function fileExists(path) {
 export async function folderExists(path) {
     try {
       await fs.readdir(path);
+    // Þetta er expected throw, ætla ekki að handlea errorinn :P
+    /* eslint-disable-next-line no-unused-vars */
     } catch (e) {
       return false;
     }
@@ -37,7 +39,8 @@ export async function folderExists(path) {
 export async function parseIndexJson(data) {
     const sanitizedData = [];
     for (let i = 0; i < data.length; i++) {
-        if (data[i].hasOwnProperty('title') && data[i].hasOwnProperty('file')) {
+      // data[i].hasOwnProperty('title);
+        if (Object.prototype.hasOwnProperty.call(data[i], 'title') && Object.prototype.hasOwnProperty.call(data[i], 'file')) {
             const doesExist = await fileExists(data[i].file);
             if (doesExist) {
               let obj = await fs.readFile('./data/' + data[i].file);
@@ -84,7 +87,7 @@ export async function readJson(filePath) {
       const parsed = JSON.parse(data);
       return parsed;
     } catch (error) {
-      console.error('error parsing data as json');
+      console.error('error parsing data as json', error);
       return null;
     }
   }

@@ -80,16 +80,16 @@ async function generateQuestionPages(data) {
     page.questions.forEach((question, index) => {
       let { question: questionTitle, answers } = question;
       if (!Array.isArray(answers)) {
-        console.log('at');
         return ;
       }
       answers = answers.filter((answer) => answer.hasOwnProperty('answer') && answer.hasOwnProperty('correct'));
       const questionHtml = `
         <h2>${escapeHTML(questionTitle)}</h2>
         <ul>
-        ${answers.map((answer, aIndex) => `<li>
-          <input type="radio" value="${answer.correct}" name="${index}" id="${aIndex}">${escapeHTML(answer.answer)}</input>
-          </li>`).join('\n')}
+        ${answers.map((answer, aIndex) => `
+          <li>
+            <input type="radio" class="${answer.correct}" name="${index}" id="${aIndex}">${escapeHTML(answer.answer)}</input>
+          </li>`).join('')}
         </ul>
       `;
 
@@ -101,13 +101,17 @@ async function generateQuestionPages(data) {
     <html>
       <head>
         <title>${page.title} Quiz</title>
+        <script src="public/questions.js" type="module"></script>
       </head>
       <body>
         <h1>${page.title} Quiz</h1>
       </body>
       <section>
-        ${questionGroups}
+        ${questionGroups.join('')}
       </section>
+      <footer>
+        <button class="submit">Senda svör</button>
+      </footer>
     </html>
     `
 
