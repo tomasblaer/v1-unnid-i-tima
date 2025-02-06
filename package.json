@@ -5,9 +5,13 @@
   "description": "Lausn á verkefni 1",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node src/lib/main.js",
+    "dev": "vite dev"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "vite": "^6.0.11"
+  }
 }
