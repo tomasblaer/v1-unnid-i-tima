@@ -1,1 +1,3 @@
-dist/index.html
+dist/
+pacakge-lock.json
+node_modules/
