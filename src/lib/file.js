@@ -1,11 +1,30 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+/**
+ * Tjekkar hvort file se til
+ * @param {string} path 
+ * @returns 
+ */
 async function fileExists(path) {
     try {
         await fs.readFile('./data/'+ path);
     } catch (e) {
         return false;
+    }
+    return true;
+}
+
+/**
+ * Tjekkar hvort dir se til
+ * @param {string} path 
+ * @returns {boolean}
+ */
+export async function folderExists(path) {
+    try {
+      await fs.readdir(path);
+    } catch (e) {
+      return false;
     }
     return true;
 }
@@ -21,7 +40,11 @@ export async function parseIndexJson(data) {
         if (data[i].hasOwnProperty('title') && data[i].hasOwnProperty('file')) {
             const doesExist = await fileExists(data[i].file);
             if (doesExist) {
+              let obj = await fs.readFile('./data/' + data[i].file);
+              obj = JSON.parse(obj);
+              if (obj.hasOwnProperty('title') && Array.isArray(obj.questions)) {
                 sanitizedData.push(data[i]);
+              }
             }
         }
     }
@@ -49,7 +72,6 @@ export async function parseQuestionJson(data) {
  * @returns {Promise<unknown | null>} Les skrá úr `filePath` og skilar innihaldi. Skilar `null` ef villa kom upp.
  */
 export async function readJson(filePath) {
-    console.log('starting to read', filePath);
     let data;
     try {
       data = await fs.readFile(path.resolve(filePath), 'utf-8');

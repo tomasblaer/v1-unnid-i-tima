@@ -6,12 +6,13 @@
   "main": "main.js",
   "scripts": {
     "build": "node src/lib/main.js",
-    "dev": "vite dev"
+    "dev": "browser-sync start --serveStatic ./dist --server --files ./public/styles.css ./dist/*.*"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vite": "^6.0.11"
+    "browser-sync": "^3.0.3",
+    "cpy-cli": "^5.0.0"
   }
 }
